@@ -1,0 +1,43 @@
+body,html{
+}
+#app{
+}
+.header-bar{
+    flex: 1 0 56px;
+}
+.container-body{
+    margin-top: 56px;
+}
+.container{
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+}
+.container .start-button{
+    margin:12px auto;
+    width:45%;
+}
+.container h2{
+    width:100%;
+    margin-top:12px;
+    text-align:center;
+    text-shadow:0 1px 3px rgba(0,0,0,.117647);
+}
+.container b{
+    color:#e91e63;
+    text-shadow:0 1px 3px rgba(255,255,255,.117647);
+}
+.container p{
+    width:90%;
+    margin:12px auto 6px;
+    text-indent:24px;
+    font-size:14px;
+    text-shadow:0 1px 6px rgba(0,0,0,.117647);
+}
+.container h3{
+    text-align:center;
+    color:#e91e63;
+}
+.container section{
+    width:100%;
+}
