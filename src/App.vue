@@ -2,7 +2,11 @@
   <div id="app">
     <top-bar></top-bar>
     <!--<div class="body-content" ref="content">-->
-      <router-view></router-view>
+    <!--<transition>-->
+      <!--<keep-alive>-->
+        <router-view></router-view>
+      <!--</keep-alive>-->
+    <!--</transition>-->
     <!--</div>-->
     <!--<footBar></footBar>-->
   </div>

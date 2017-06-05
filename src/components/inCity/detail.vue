@@ -24,18 +24,16 @@
       },
       created () {
         this.id = this.$route.params.id
-        console.log(this.id)
+        console.log(this.$route.params.id)
         this.getDetails(this.id)
       },
       methods: {
         getDetails (id) {
-          console.log(id)
           this.$http.get('./static/data.json', {'id': id}).then((res) => {
             let resData = res.data.driver.lists
             console.log(typeof parseInt(id))
             if (res.data.errno === ERR_OK) {
-              this.content = resData[id]
-              console.log(resData[id])
+              this.content = resData[ id - 1 ]
             }
           })
         }

@@ -2,8 +2,8 @@
     <div class="demo-infinite-container demo-refresh-container">
         <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
         <mu-list>
-            <template v-for="(item, index) in list">
-                <mu-list-item :title="item.name"  @click="addCart(index)">
+            <template v-for="(item, index) in list" v-if="list">
+                <mu-list-item :title="item.name"  @click="addCart(index,item.id)">
                     <p>年龄: {{ item.age }}&nbsp;&nbsp;&nbsp;&nbsp;驾龄: {{ item.driveAge }}</p>
                     <p>常跑时间:
                         <template v-for="time in item.time">
@@ -50,26 +50,28 @@ export default {
       const resData = response.data.driver
       console.log(response.data.errno)
       if (response.data.errno === ERR_OK) {
-        console.log(1)
         this.drivers = resData.lists
+        console.log(this.drivers.length)
         listNum = this.drivers.length
         for (let i = 0; i < defaultNum; i++) {
           this.list.push(this.drivers[i])
         }
       }
     })
+    console.log(listNum)
   },
   mounted () {
     this.scroller = this.$el
     this.trigger = this.$el
   },
   destroyed () {
-    Bus.$emit('getTar', content)
+
   },
   methods: {
     addCart (index, id) {
       this.$router.push('/inCity/detail/' + id)
       content = this.drivers[index]
+      Bus.$emit('getTar', content)
     },
     /* addCart (index) {
       this.$router.push('/inCity/detail')
@@ -84,9 +86,7 @@ export default {
         this.$http.get('./static/data.json').then((response) => {
           this.list = []
           const resData = response.data.driver
-          console.log(response.data.errno)
           if (response.data.errno === ERR_OK) {
-            console.log(1)
             this.drivers = resData.lists
             listNum = this.drivers.length
             for (let i = 0; i < defaultNum; i++) {
@@ -101,22 +101,27 @@ export default {
     },
     loadMore () {
       this.loading = true
+      console.log(listNum)
       this.$http.get('./static/data.json').then((response) => {
         const resData = response.data.driver
         if (response.data.errno === ERR_OK) {
           this.drivers = resData.lists
           if (listNum >= defaultNum) {
             setTimeout(() => {
-              if (listNum < defaultNum + 3) {
+              var k = 0
+              if (listNum < defaultNum + 5) {
                 for (let i = defaultNum; i < listNum; i++) {
+                  k++
                   this.list.push(this.drivers[i])
                 }
               } else {
-                for (let i = defaultNum; i < defaultNum + 3; i++) {
+                for (let i = defaultNum; i < defaultNum + 5; i++) {
+                  k++
                   this.list.push(this.drivers[i])
                 }
               }
-              defaultNum += 3
+              defaultNum += k
+              console.log(defaultNum)
               this.loading = false
             }, 1000)
           } else {
